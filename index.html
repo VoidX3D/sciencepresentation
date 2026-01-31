@@ -3,600 +3,352 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Project Hub Presentation</title>
+    <title>Project Hub | Presentation Portal</title>
+    <link rel="stylesheet" href="styles.css">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
-    <style>
-        * {
-            margin: 0;
-            padding: 0;
-            box-sizing: border-box;
-            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
-        }
-        
-        body {
-            background-color: #f8fafc;
-            color: #333;
-            line-height: 1.6;
-            overflow-x: hidden;
-        }
-        
-        .container {
-            display: flex;
-            flex-direction: column;
-            min-height: 100vh;
-            position: relative;
-        }
-        
-        .navigation {
-            position: fixed;
-            top: 20px;
-            right: 20px;
-            z-index: 100;
-            display: flex;
-            gap: 10px;
-        }
-        
-        .nav-dot {
-            width: 12px;
-            height: 12px;
-            border-radius: 50%;
-            background-color: #ddd;
-            cursor: pointer;
-            transition: all 0.3s ease;
-        }
-        
-        .nav-dot.active {
-            background-color: #3b82f6;
-            transform: scale(1.2);
-        }
-        
-        .page {
-            width: 100vw;
-            height: 100vh;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            padding: 40px;
-            position: relative;
-            scroll-snap-align: start;
-        }
-        
-        .page-content {
-            max-width: 1200px;
-            width: 100%;
-            background-color: white;
-            border-radius: 20px;
-            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.08);
-            padding: 50px;
-            position: relative;
-            overflow: hidden;
-        }
-        
-        .page-number {
-            position: absolute;
-            bottom: 20px;
-            right: 20px;
-            color: #94a3b8;
-            font-size: 14px;
-            font-weight: 600;
-        }
-        
-        .links-container {
-            margin: 30px 0;
-            display: flex;
-            flex-wrap: wrap;
-            gap: 20px;
-        }
-        
-        .link-card {
-            flex: 1;
-            min-width: 300px;
-            background-color: #f1f5f9;
-            border-radius: 12px;
-            padding: 25px;
-            transition: all 0.3s ease;
-            border-left: 4px solid #3b82f6;
-        }
-        
-        .link-card:hover {
-            transform: translateY(-5px);
-            box-shadow: 0 10px 20px rgba(59, 130, 246, 0.1);
-        }
-        
-        .link-icon {
-            background-color: #3b82f6;
-            color: white;
-            width: 50px;
-            height: 50px;
-            border-radius: 50%;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            margin-bottom: 15px;
-            font-size: 22px;
-        }
-        
-        .link-title {
-            font-size: 18px;
-            font-weight: 700;
-            margin-bottom: 10px;
-            color: #1e293b;
-        }
-        
-        .link-url {
-            color: #64748b;
-            font-size: 14px;
-            margin-bottom: 20px;
-            word-break: break-all;
-        }
-        
-        .link-button {
-            display: inline-block;
-            background-color: #3b82f6;
-            color: white;
-            text-decoration: none;
-            padding: 10px 20px;
-            border-radius: 6px;
-            font-weight: 600;
-            transition: all 0.3s ease;
-        }
-        
-        .link-button:hover {
-            background-color: #2563eb;
-        }
-        
-        h1 {
-            font-size: 42px;
-            color: #1e293b;
-            margin-bottom: 20px;
-            line-height: 1.2;
-        }
-        
-        h2 {
-            font-size: 32px;
-            color: #1e293b;
-            margin-bottom: 15px;
-        }
-        
-        h3 {
-            font-size: 24px;
-            color: #334155;
-            margin-bottom: 15px;
-        }
-        
-        p {
-            color: #64748b;
-            font-size: 18px;
-            margin-bottom: 20px;
-            max-width: 800px;
-        }
-        
-        .highlight {
-            color: #3b82f6;
-        }
-        
-        .tagline {
-            font-size: 20px;
-            font-weight: 600;
-            color: #64748b;
-            margin-bottom: 30px;
-        }
-        
-        .accent-line {
-            height: 5px;
-            width: 80px;
-            background-color: #3b82f6;
-            border-radius: 5px;
-            margin: 20px 0;
-        }
-        
-        .presentation-preview {
-            margin: 30px 0;
-            border-radius: 12px;
-            overflow: hidden;
-            box-shadow: 0 10px 25px rgba(0, 0, 0, 0.1);
-            border: 1px solid #e2e8f0;
-        }
-        
-        .preview-header {
-            background-color: #f1f5f9;
-            padding: 15px;
-            display: flex;
-            align-items: center;
-            gap: 10px;
-        }
-        
-        .preview-dots {
-            display: flex;
-            gap: 8px;
-        }
-        
-        .preview-dot {
-            width: 12px;
-            height: 12px;
-            border-radius: 50%;
-        }
-        
-        .preview-dot.red {
-            background-color: #f87171;
-        }
-        
-        .preview-dot.yellow {
-            background-color: #fbbf24;
-        }
-        
-        .preview-dot.green {
-            background-color: #10b981;
-        }
-        
-        .preview-content {
-            padding: 30px;
-            background-color: white;
-            text-align: center;
-        }
-        
-        .preview-url {
-            font-family: monospace;
-            font-size: 16px;
-            color: #3b82f6;
-            margin: 15px 0;
-            word-break: break-all;
-        }
-        
-        .qr-code {
-            display: inline-block;
-            padding: 20px;
-            background-color: white;
-            border-radius: 12px;
-            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.05);
-            margin: 20px 0;
-        }
-        
-        .qr-placeholder {
-            width: 180px;
-            height: 180px;
-            background-color: #f8fafc;
-            border: 2px dashed #cbd5e1;
-            border-radius: 8px;
-            display: flex;
-            flex-direction: column;
-            align-items: center;
-            justify-content: center;
-            color: #94a3b8;
-        }
-        
-        .qr-placeholder i {
-            font-size: 40px;
-            margin-bottom: 10px;
-        }
-        
-        .contact-info {
-            display: flex;
-            flex-wrap: wrap;
-            gap: 30px;
-            margin-top: 30px;
-        }
-        
-        .contact-item {
-            display: flex;
-            align-items: center;
-            gap: 10px;
-            color: #64748b;
-        }
-        
-        .contact-item i {
-            color: #3b82f6;
-            font-size: 20px;
-        }
-        
-        @media (max-width: 768px) {
-            .page {
-                padding: 20px;
-                height: auto;
-                min-height: 100vh;
-            }
-            
-            .page-content {
-                padding: 30px;
-            }
-            
-            h1 {
-                font-size: 32px;
-            }
-            
-            h2 {
-                font-size: 26px;
-            }
-            
-            .link-card {
-                min-width: 100%;
-            }
-            
-            .navigation {
-                top: 10px;
-                right: 10px;
-            }
-        }
-    </style>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
 </head>
 <body>
-    <div class="container" id="presentation-container">
-        <!-- Navigation dots -->
-        <div class="navigation">
-            <div class="nav-dot active" data-page="0"></div>
-            <div class="nav-dot" data-page="1"></div>
-            <div class="nav-dot" data-page="2"></div>
-        </div>
-        
-        <!-- Page 1: Introduction -->
-        <div class="page" id="page1">
-            <div class="page-content">
-                <h1>Project <span class="highlight">Hub</span> Presentation</h1>
-                <div class="accent-line"></div>
-                <p class="tagline">Strategic overview and key presentation links for stakeholders</p>
-                
-                <p>Welcome to the centralized hub for our upcoming project presentation. This interface provides direct access to the presentation materials and supporting resources needed for comprehensive review and discussion.</p>
-                
-                <div class="links-container">
-                    <div class="link-card">
-                        <div class="link-icon">
-                            <i class="fas fa-external-link-alt"></i>
-                        </div>
-                        <div class="link-title">Primary Presentation Link</div>
-                        <div class="link-url">https://pitch.com/v/v-tqai7n/0fc4b3a0-82d5-4fb3-b500-0ac1532a2817</div>
-                        <a href="https://pitch.com/v/v-tqai7n/0fc4b3a0-82d5-4fb3-b500-0ac1532a2817" target="_blank" class="link-button">
-                            Open Presentation <i class="fas fa-arrow-right"></i>
-                        </a>
-                    </div>
+    <div class="container">
+        <header>
+            <div class="logo">
+                <i class="fas fa-rocket"></i>
+                <span>ProjectHub</span>
+            </div>
+            <nav>
+                <ul>
+                    <li><a href="#" class="nav-link active" data-page="home">Home</a></li>
+                    <li><a href="#" class="nav-link" data-page="links">Links</a></li>
+                    <li><a href="#" class="nav-link" data-page="details">Details</a></li>
+                </ul>
+            </nav>
+            <div class="presentation-badge">
+                <i class="fas fa-play-circle"></i>
+                <span>Live Presentation</span>
+            </div>
+        </header>
+
+        <main>
+            <!-- Home Page -->
+            <section id="home-page" class="page active">
+                <div class="hero">
+                    <h1>Project Presentation Hub</h1>
+                    <p class="subtitle">Centralized portal for your upcoming presentation materials</p>
                     
-                    <div class="link-card">
-                        <div class="link-icon">
-                            <i class="fas fa-link"></i>
+                    <div class="cta-section">
+                        <div class="cta-card primary">
+                            <h2><i class="fas fa-external-link-alt"></i> Primary Presentation</h2>
+                            <p class="url-display">https://pitch.com/v/v-tqai7n/0fc4b3a0-82d5-4fb3-b500-0ac1532a2817</p>
+                            <a href="https://pitch.com/v/v-tqai7n/0fc4b3a0-82d5-4fb3-b500-0ac1532a2817" target="_blank" class="btn btn-primary">
+                                Open Full Presentation <i class="fas fa-arrow-right"></i>
+                            </a>
                         </div>
-                        <div class="link-title">Shortened Presentation Link</div>
-                        <div class="link-url">https://pitch.com/v/v-tqai7n</div>
-                        <a href="https://pitch.com/v/v-tqai7n" target="_blank" class="link-button">
-                            Open Short Link <i class="fas fa-external-link-alt"></i>
-                        </a>
+                        
+                        <div class="cta-card secondary">
+                            <h2><i class="fas fa-link"></i> Shortened Link</h2>
+                            <p class="url-display">https://pitch.com/v/v-tqai7n</p>
+                            <a href="https://pitch.com/v/v-tqai7n" target="_blank" class="btn btn-secondary">
+                                Open Short Link <i class="fas fa-external-link-alt"></i>
+                            </a>
+                        </div>
                     </div>
                 </div>
                 
-                <div class="presentation-preview">
-                    <div class="preview-header">
-                        <div class="preview-dots">
-                            <div class="preview-dot red"></div>
-                            <div class="preview-dot yellow"></div>
-                            <div class="preview-dot green"></div>
+                <div class="features">
+                    <h3>Quick Access Features</h3>
+                    <div class="features-grid">
+                        <div class="feature">
+                            <div class="feature-icon">
+                                <i class="fas fa-bolt"></i>
+                            </div>
+                            <h4>Instant Access</h4>
+                            <p>One-click access to your Pitch.com presentation</p>
                         </div>
-                        <div style="flex-grow: 1; text-align: center; font-size: 14px; color: #64748b;">
-                            pitch.com • Secure Presentation
+                        <div class="feature">
+                            <div class="feature-icon">
+                                <i class="fas fa-mobile-alt"></i>
+                            </div>
+                            <h4>Mobile Friendly</h4>
+                            <p>Accessible on all devices and screen sizes</p>
+                        </div>
+                        <div class="feature">
+                            <div class="feature-icon">
+                                <i class="fas fa-share-alt"></i>
+                            </div>
+                            <h4>Easy Sharing</h4>
+                            <p>Share both full and shortened links with stakeholders</p>
+                        </div>
+                        <div class="feature">
+                            <div class="feature-icon">
+                                <i class="fas fa-clock"></i>
+                            </div>
+                            <h4>Always Available</h4>
+                            <p>24/7 access to your presentation materials</p>
                         </div>
                     </div>
-                    <div class="preview-content">
-                        <h3>Project Presentation</h3>
-                        <p>Interactive presentation with detailed project information</p>
-                        <div class="preview-url">https://pitch.com/v/v-tqai7n</div>
-                        <div class="qr-code">
-                            <div class="qr-placeholder">
-                                <i class="fas fa-qrcode"></i>
-                                <span>Scan for quick access</span>
+                </div>
+            </section>
+
+            <!-- Links Page -->
+            <section id="links-page" class="page">
+                <div class="page-header">
+                    <h2><i class="fas fa-link"></i> Presentation Links</h2>
+                    <p>Direct access to all presentation materials</p>
+                </div>
+                
+                <div class="links-container">
+                    <div class="link-card full">
+                        <div class="link-card-header">
+                            <div class="link-icon">
+                                <i class="fas fa-file-powerpoint"></i>
+                            </div>
+                            <div class="link-info">
+                                <h3>Full Presentation Link</h3>
+                                <div class="link-badge">Primary</div>
                             </div>
                         </div>
-                        <p>Scan the QR code or click the links above to access the presentation</p>
+                        <div class="link-url">
+                            <code>https://pitch.com/v/v-tqai7n/0fc4b3a0-82d5-4fb3-b500-0ac1532a2817</code>
+                        </div>
+                        <p class="link-description">Use this link for direct access to the complete presentation with all slides and media.</p>
+                        <div class="link-actions">
+                            <a href="https://pitch.com/v/v-tqai7n/0fc4b3a0-82d5-4fb3-b500-0ac1532a2817" target="_blank" class="btn btn-primary">
+                                <i class="fas fa-play"></i> Open Presentation
+                            </a>
+                            <button class="btn btn-outline copy-link" data-link="https://pitch.com/v/v-tqai7n/0fc4b3a0-82d5-4fb3-b500-0ac1532a2817">
+                                <i class="fas fa-copy"></i> Copy Link
+                            </button>
+                        </div>
+                    </div>
+                    
+                    <div class="link-card short">
+                        <div class="link-card-header">
+                            <div class="link-icon">
+                                <i class="fas fa-compress-alt"></i>
+                            </div>
+                            <div class="link-info">
+                                <h3>Shortened Link</h3>
+                                <div class="link-badge secondary">Alternative</div>
+                            </div>
+                        </div>
+                        <div class="link-url">
+                            <code>https://pitch.com/v/v-tqai7n</code>
+                        </div>
+                        <p class="link-description">Use this shortened link for quick sharing with team members and stakeholders.</p>
+                        <div class="link-actions">
+                            <a href="https://pitch.com/v/v-tqai7n" target="_blank" class="btn btn-secondary">
+                                <i class="fas fa-external-link-alt"></i> Open Link
+                            </a>
+                            <button class="btn btn-outline copy-link" data-link="https://pitch.com/v/v-tqai7n">
+                                <i class="fas fa-copy"></i> Copy Link
+                            </button>
+                        </div>
+                    </div>
+                    
+                    <div class="link-card qr">
+                        <div class="link-card-header">
+                            <div class="link-icon">
+                                <i class="fas fa-qrcode"></i>
+                            </div>
+                            <div class="link-info">
+                                <h3>QR Code Access</h3>
+                                <div class="link-badge">Mobile</div>
+                            </div>
+                        </div>
+                        <div class="qr-container">
+                            <div class="qr-placeholder">
+                                <i class="fas fa-qrcode"></i>
+                                <p>Scan for Presentation</p>
+                            </div>
+                            <div class="qr-instructions">
+                                <h4>Scan Instructions:</h4>
+                                <ol>
+                                    <li>Open your phone's camera</li>
+                                    <li>Point at the QR code</li>
+                                    <li>Tap the notification to open</li>
+                                    <li>Or use a QR scanner app</li>
+                                </ol>
+                            </div>
+                        </div>
+                        <div class="link-actions">
+                            <button class="btn btn-outline generate-qr">
+                                <i class="fas fa-qrcode"></i> Generate QR
+                            </button>
+                        </div>
                     </div>
                 </div>
                 
-                <div class="page-number">Page 1/3</div>
-            </div>
-        </div>
-        
-        <!-- Page 2: Presentation Details -->
-        <div class="page" id="page2">
-            <div class="page-content">
-                <h2>Presentation <span class="highlight">Overview</span></h2>
-                <div class="accent-line"></div>
-                <p class="tagline">What to expect in the project presentation</p>
+                <div class="usage-tips">
+                    <h3><i class="fas fa-lightbulb"></i> Usage Tips</h3>
+                    <div class="tips">
+                        <div class="tip">
+                            <i class="fas fa-desktop"></i>
+                            <p>For presentations, use the full link on a large screen</p>
+                        </div>
+                        <div class="tip">
+                            <i class="fas fa-mobile-alt"></i>
+                            <p>For quick sharing, use the shortened link or QR code</p>
+                        </div>
+                        <div class="tip">
+                            <i class="fas fa-users"></i>
+                            <p>Share both links with your team before the meeting</p>
+                        </div>
+                    </div>
+                </div>
+            </section>
+
+            <!-- Details Page -->
+            <section id="details-page" class="page">
+                <div class="page-header">
+                    <h2><i class="fas fa-info-circle"></i> Presentation Details</h2>
+                    <p>Everything you need to know about the upcoming presentation</p>
+                </div>
                 
-                <h3>Key Sections</h3>
-                <p>The presentation is structured to provide a comprehensive view of the project, from conceptualization to implementation strategy.</p>
-                
-                <div style="display: grid; grid-template-columns: repeat(auto-fill, minmax(300px, 1fr)); gap: 20px; margin: 30px 0;">
-                    <div style="background-color: #f0f9ff; padding: 20px; border-radius: 10px; border-left: 4px solid #0ea5e9;">
-                        <h4 style="color: #0369a1; margin-bottom: 10px;">Executive Summary</h4>
-                        <p style="font-size: 16px;">High-level project overview, objectives, and expected outcomes for stakeholders.</p>
+                <div class="details-grid">
+                    <div class="detail-card">
+                        <h3><i class="fas fa-calendar-alt"></i> Presentation Schedule</h3>
+                        <div class="detail-content">
+                            <div class="schedule-item">
+                                <div class="time">Pre-Meeting</div>
+                                <div class="description">Review materials and prepare questions</div>
+                            </div>
+                            <div class="schedule-item current">
+                                <div class="time">Presentation</div>
+                                <div class="description">Live walkthrough of project details</div>
+                            </div>
+                            <div class="schedule-item">
+                                <div class="time">Q&A Session</div>
+                                <div class="description">Address stakeholder questions</div>
+                            </div>
+                            <div class="schedule-item">
+                                <div class="time">Follow-up</div>
+                                <div class="description">Next steps and action items</div>
+                            </div>
+                        </div>
                     </div>
                     
-                    <div style="background-color: #f0fdf4; padding: 20px; border-radius: 10px; border-left: 4px solid #10b981;">
-                        <h4 style="color: #047857; margin-bottom: 10px;">Market Analysis</h4>
-                        <p style="font-size: 16px;">Comprehensive research on market trends, opportunities, and competitive landscape.</p>
+                    <div class="detail-card">
+                        <h3><i class="fas fa-key"></i> Key Links</h3>
+                        <div class="detail-content">
+                            <div class="key-link">
+                                <div class="link-title">Primary Link</div>
+                                <div class="link-value">
+                                    <a href="https://pitch.com/v/v-tqai7n/0fc4b3a0-82d5-4fb3-b500-0ac1532a2817" target="_blank">
+                                        pitch.com/v/v-tqai7n/0fc4b3a0...
+                                    </a>
+                                </div>
+                            </div>
+                            <div class="key-link">
+                                <div class="link-title">Short Link</div>
+                                <div class="link-value">
+                                    <a href="https://pitch.com/v/v-tqai7n" target="_blank">
+                                        pitch.com/v/v-tqai7n
+                                    </a>
+                                </div>
+                            </div>
+                            <div class="key-link">
+                                <div class="link-title">Backup</div>
+                                <div class="link-value">
+                                    <span class="muted">Available upon request</span>
+                                </div>
+                            </div>
+                        </div>
                     </div>
                     
-                    <div style="background-color: #fef7cd; padding: 20px; border-radius: 10px; border-left: 4px solid #f59e0b;">
-                        <h4 style="color: #b45309; margin-bottom: 10px;">Implementation Plan</h4>
-                        <p style="font-size: 16px;">Detailed roadmap with timelines, milestones, and resource allocation.</p>
+                    <div class="detail-card full-width">
+                        <h3><i class="fas fa-file-alt"></i> Presentation Content Overview</h3>
+                        <div class="detail-content">
+                            <div class="content-grid">
+                                <div class="content-item">
+                                    <h4>Executive Summary</h4>
+                                    <p>Project overview, objectives, and key deliverables</p>
+                                </div>
+                                <div class="content-item">
+                                    <h4>Market Analysis</h4>
+                                    <p>Research findings and competitive landscape</p>
+                                </div>
+                                <div class="content-item">
+                                    <h4>Implementation Plan</h4>
+                                    <p>Timeline, milestones, and resource allocation</p>
+                                </div>
+                                <div class="content-item">
+                                    <h4>Financial Projections</h4>
+                                    <p>Budget, ROI analysis, and funding requirements</p>
+                                </div>
+                            </div>
+                        </div>
                     </div>
                     
-                    <div style="background-color: #f1f5f9; padding: 20px; border-radius: 10px; border-left: 4px solid #64748b;">
-                        <h4 style="color: #334155; margin-bottom: 10px;">Financial Projections</h4>
-                        <p style="font-size: 16px;">ROI analysis, budget breakdown, and financial forecasting for the next 3 years.</p>
+                    <div class="detail-card">
+                        <h3><i class="fas fa-user-check"></i> Target Audience</h3>
+                        <div class="detail-content">
+                            <ul class="audience-list">
+                                <li><i class="fas fa-user-tie"></i> Executive Leadership</li>
+                                <li><i class="fas fa-users"></i> Project Stakeholders</li>
+                                <li><i class="fas fa-chart-line"></i> Department Heads</li>
+                                <li><i class="fas fa-handshake"></i> External Partners</li>
+                            </ul>
+                        </div>
+                    </div>
+                    
+                    <div class="detail-card">
+                        <h3><i class="fas fa-tools"></i> Technical Requirements</h3>
+                        <div class="detail-content">
+                            <ul class="requirements-list">
+                                <li>Modern web browser</li>
+                                <li>Internet connection</li>
+                                <li>Audio capabilities for video</li>
+                                <li>Screen resolution: 1024x768+</li>
+                            </ul>
+                        </div>
                     </div>
                 </div>
                 
-                <h3>Access Instructions</h3>
-                <p>For the best viewing experience:</p>
-                <ul style="color: #64748b; font-size: 18px; margin-left: 20px; margin-bottom: 30px;">
-                    <li style="margin-bottom: 10px;">Use the full link for direct access to the specific presentation</li>
-                    <li style="margin-bottom: 10px;">Use the shortened link for quick sharing with team members</li>
-                    <li style="margin-bottom: 10px;">The presentation is optimized for both desktop and mobile viewing</li>
-                    <li>Interactive elements are included for engagement during the live presentation</li>
-                </ul>
-                
-                <div class="links-container">
-                    <a href="https://pitch.com/v/v-tqai7n/0fc4b3a0-82d5-4fb3-b500-0ac1532a2817" target="_blank" class="link-button" style="font-size: 18px; padding: 15px 30px;">
-                        <i class="fas fa-play-circle"></i> Launch Full Presentation
+                <div class="action-buttons">
+                    <a href="https://pitch.com/v/v-tqai7n/0fc4b3a0-82d5-4fb3-b500-0ac1532a2817" target="_blank" class="btn btn-primary btn-large">
+                        <i class="fas fa-play"></i> Launch Presentation
                     </a>
-                    
-                    <a href="https://pitch.com/v/v-tqai7n" target="_blank" class="link-button" style="font-size: 18px; padding: 15px 30px; background-color: #10b981;">
+                    <a href="https://pitch.com/v/v-tqai7n" target="_blank" class="btn btn-secondary btn-large">
                         <i class="fas fa-share-alt"></i> Share Short Link
                     </a>
                 </div>
-                
-                <div class="page-number">Page 2/3</div>
+            </section>
+        </main>
+
+        <footer>
+            <div class="footer-content">
+                <div class="footer-section">
+                    <h4>Presentation Hub</h4>
+                    <p>Centralized portal for project presentation materials</p>
+                </div>
+                <div class="footer-section">
+                    <h4>Quick Links</h4>
+                    <ul>
+                        <li><a href="#" class="footer-link" data-page="home">Home</a></li>
+                        <li><a href="#" class="footer-link" data-page="links">Links</a></li>
+                        <li><a href="#" class="footer-link" data-page="details">Details</a></li>
+                    </ul>
+                </div>
+                <div class="footer-section">
+                    <h4>Presentation Links</h4>
+                    <div class="footer-links">
+                        <a href="https://pitch.com/v/v-tqai7n/0fc4b3a0-82d5-4fb3-b500-0ac1532a2817" target="_blank">Full Link</a>
+                        <a href="https://pitch.com/v/v-tqai7n" target="_blank">Short Link</a>
+                    </div>
+                </div>
             </div>
-        </div>
-        
-        <!-- Page 3: Next Steps & Contact -->
-        <div class="page" id="page3">
-            <div class="page-content">
-                <h2>Next Steps & <span class="highlight">Action Items</span></h2>
-                <div class="accent-line"></div>
-                <p class="tagline">Post-presentation follow-up and stakeholder engagement</p>
-                
-                <h3>Presentation Timeline</h3>
-                <div style="display: flex; align-items: center; margin: 30px 0; flex-wrap: wrap; gap: 20px;">
-                    <div style="flex: 1; min-width: 250px;">
-                        <div style="background-color: #3b82f6; color: white; padding: 15px; border-radius: 10px; margin-bottom: 10px;">
-                            <h4 style="color: white;">Pre-Presentation</h4>
-                            <p style="color: #dbeafe; font-size: 16px;">Review materials and prepare questions</p>
-                        </div>
-                        <p style="font-size: 16px;">Access the presentation using the links provided to familiarize yourself with content.</p>
-                    </div>
-                    
-                    <div style="flex: 1; min-width: 250px;">
-                        <div style="background-color: #10b981; color: white; padding: 15px; border-radius: 10px; margin-bottom: 10px;">
-                            <h4 style="color: white;">Live Presentation</h4>
-                            <p style="color: #d1fae5; font-size: 16px;">Interactive discussion and Q&A session</p>
-                        </div>
-                        <p style="font-size: 16px;">Participate in the scheduled presentation session for detailed walkthrough.</p>
-                    </div>
-                    
-                    <div style="flex: 1; min-width: 250px;">
-                        <div style="background-color: #f59e0b; color: white; padding: 15px; border-radius: 10px; margin-bottom: 10px;">
-                            <h4 style="color: white;">Post-Presentation</h4>
-                            <p style="color: #fef3c7; font-size: 16px;">Feedback and decision-making process</p>
-                        </div>
-                        <p style="font-size: 16px;">Provide feedback and participate in follow-up discussions for project approval.</p>
-                    </div>
-                </div>
-                
-                <h3>Quick Access Links</h3>
-                <p>Save these links for easy access during and after the presentation:</p>
-                
-                <div style="background-color: #f8fafc; padding: 25px; border-radius: 12px; margin: 25px 0; border: 1px solid #e2e8f0;">
-                    <div style="display: flex; flex-wrap: wrap; gap: 20px; align-items: center;">
-                        <div style="flex: 1; min-width: 300px;">
-                            <h4 style="margin-bottom: 10px;">Full Presentation Link</h4>
-                            <div style="background-color: white; padding: 12px; border-radius: 8px; font-family: monospace; font-size: 14px; color: #3b82f6; border: 1px solid #e2e8f0;">
-                                https://pitch.com/v/v-tqai7n/0fc4b3a0-82d5-4fb3-b500-0ac1532a2817
-                            </div>
-                        </div>
-                        <div>
-                            <a href="https://pitch.com/v/v-tqai7n/0fc4b3a0-82d5-4fb3-b500-0ac1532a2817" target="_blank" class="link-button">
-                                Open <i class="fas fa-external-link-alt"></i>
-                            </a>
-                        </div>
-                    </div>
-                    
-                    <div style="height: 1px; background-color: #e2e8f0; margin: 20px 0;"></div>
-                    
-                    <div style="display: flex; flex-wrap: wrap; gap: 20px; align-items: center;">
-                        <div style="flex: 1; min-width: 300px;">
-                            <h4 style="margin-bottom: 10px;">Short Presentation Link</h4>
-                            <div style="background-color: white; padding: 12px; border-radius: 8px; font-family: monospace; font-size: 14px; color: #3b82f6; border: 1px solid #e2e8f0;">
-                                https://pitch.com/v/v-tqai7n
-                            </div>
-                        </div>
-                        <div>
-                            <a href="https://pitch.com/v/v-tqai7n" target="_blank" class="link-button">
-                                Open <i class="fas fa-external-link-alt"></i>
-                            </a>
-                        </div>
-                    </div>
-                </div>
-                
-                <div class="contact-info">
-                    <div class="contact-item">
-                        <i class="fas fa-calendar-alt"></i>
-                        <span>Presentation Date: TBD</span>
-                    </div>
-                    <div class="contact-item">
-                        <i class="fas fa-clock"></i>
-                        <span>Estimated Duration: 45 minutes</span>
-                    </div>
-                    <div class="contact-item">
-                        <i class="fas fa-users"></i>
-                        <span>Audience: Stakeholders & Decision Makers</span>
-                    </div>
-                </div>
-                
-                <div class="page-number">Page 3/3</div>
+            <div class="footer-bottom">
+                <p>© 2023 Project Hub Presentation. All rights reserved.</p>
             </div>
-        </div>
+        </footer>
     </div>
 
-    <script>
-        // Navigation functionality
-        const navDots = document.querySelectorAll('.nav-dot');
-        const pages = document.querySelectorAll('.page');
-        const container = document.getElementById('presentation-container');
-        
-        let currentPage = 0;
-        
-        // Set up navigation dots
-        navDots.forEach((dot, index) => {
-            dot.addEventListener('click', () => {
-                goToPage(index);
-            });
-        });
-        
-        // Function to go to specific page
-        function goToPage(pageIndex) {
-            if (pageIndex < 0 || pageIndex >= pages.length) return;
-            
-            // Update active dot
-            navDots.forEach(dot => dot.classList.remove('active'));
-            navDots[pageIndex].classList.add('active');
-            
-            // Scroll to page
-            pages[pageIndex].scrollIntoView({ behavior: 'smooth' });
-            
-            currentPage = pageIndex;
-        }
-        
-        // Keyboard navigation
-        document.addEventListener('keydown', (e) => {
-            if (e.key === 'ArrowRight' || e.key === 'ArrowDown') {
-                e.preventDefault();
-                goToPage(currentPage + 1);
-            } else if (e.key === 'ArrowLeft' || e.key === 'ArrowUp') {
-                e.preventDefault();
-                goToPage(currentPage - 1);
-            }
-        });
-        
-        // Scroll detection for updating active dot
-        let isScrolling = false;
-        container.addEventListener('scroll', () => {
-            if (!isScrolling) {
-                window.requestAnimationFrame(() => {
-                    const scrollPosition = container.scrollTop;
-                    const pageHeight = window.innerHeight;
-                    const current = Math.round(scrollPosition / pageHeight);
-                    
-                    if (current !== currentPage && current >= 0 && current < pages.length) {
-                        currentPage = current;
-                        navDots.forEach(dot => dot.classList.remove('active'));
-                        navDots[current].classList.add('active');
-                    }
-                    
-                    isScrolling = false;
-                });
-                isScrolling = true;
-            }
-        });
-        
-        // Initialize with first page active
-        goToPage(0);
-    </script>
+    <div class="notification" id="notification">
+        <span class="notification-text">Link copied to clipboard!</span>
+    </div>
+
+    <script src="script.js"></script>
 </body>
 </html>
